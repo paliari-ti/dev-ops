@@ -101,4 +101,6 @@ ls /run/containerd/containerd.sock
 
 systemctl daemon-reload
 
+systemctl enable --now kubelet
+
 echo "Installation finished"
