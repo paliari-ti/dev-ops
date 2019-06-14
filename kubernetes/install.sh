@@ -4,7 +4,7 @@ set -e
 ## Construindo um cluster Kubernetes sem utilizar o Docker no RedHat
 
 ## Etapas em ambos, master e workers
-yum update
+yum update -y
 yum install -y wget
 
 ## Open ports
