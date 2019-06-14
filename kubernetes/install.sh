@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e
 
 ## Construindo um cluster Kubernetes sem utilizar o Docker no RedHat
