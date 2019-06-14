@@ -89,15 +89,7 @@ systemctl start containerd
 
 systemctl status containerd
 
-containerd --help
-
-runc --help
-
-runc list
-
 echo "runtime-endpoint: unix:///run/containerd/containerd.sock" > /etc/crictl.yaml
-
-ls /run/containerd/containerd.sock
 
 systemctl daemon-reload
 

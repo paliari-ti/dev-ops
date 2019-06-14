@@ -27,3 +27,13 @@ Replace the variables below with the correct values
 ```bash
 kubeadm join $MASTER_IP:6443 --token $TOKEN --discovery-token-ca-cert-hash $DISCOVERY_TOKEN --cri-socket /run/containerd/containerd.sock
 ```
+
+## Helpfull commands
+
+```
+systemctl status containerd
+containerd --help
+runc --help
+runc list
+ls /run/containerd/containerd.sock
+```
