@@ -10,7 +10,7 @@ After the installation finished, follow the steps below
 ## Only on MASTER
 
 ```bash
-kubeadm init --cri-socket /run/containerd/containerd.sock
+kubeadm init --apiserver-advertise-address $(hostname -I) --cri-socket /run/containerd/containerd.sock
 mkdir -p $HOME/.kube
 cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config
