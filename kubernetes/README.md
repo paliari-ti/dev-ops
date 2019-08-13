@@ -10,6 +10,7 @@ After the installation finished, follow the steps below
 ## Only on MASTER
 
 ```bash
+kubeadm config images pull
 kubeadm init --apiserver-advertise-address $(hostname -I) --cri-socket /run/containerd/containerd.sock
 mkdir -p $HOME/.kube
 cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
