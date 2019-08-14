@@ -39,6 +39,8 @@ kubeadm join $MASTER_IP:6443 --token $TOKEN --discovery-token-ca-cert-hash $DISC
 
 ## Helpfull commands
 
+[Cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+
 ```
 systemctl status containerd
 containerd --help
