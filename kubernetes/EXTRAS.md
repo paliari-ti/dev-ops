@@ -1,0 +1,25 @@
+# Extras
+
+## Red Hat
+
+### Configurar **yum**
+
+```
+subscription-manager register --username <username> --password <password> --auto-attach
+
+subscription-manager repos --enable=rhel-7-server-rpms
+subscription-manager repos --enable=rhel-7-server-extras-rpms
+subscription-manager repos --enable=rhel-7-server-optional-rpms
+
+```
+
+### Disable swap
+
+```
+swapoff -a
+```
+Remove the line with `/dev/mapper/rhel-swap` from `/etc/fstab` file
+
+## K8S
+
+[Bash completion](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
