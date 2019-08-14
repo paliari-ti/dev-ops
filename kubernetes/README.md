@@ -2,11 +2,11 @@
 
 ## Checklist para instalação
 
-1 - Configurar **yum** e **yum update**
-2 - Desabilitar swap
-3 - Instalar usando o script **install.sh** descrito abaixo
-4 - Habilitar o [bash completion](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-5 - Instalar o restanta para master ou worker (ver readme abaixo)
+1. Configurar **yum** e **yum update**
+2. Desabilitar swap
+3. Instalar usando o script **install.sh** descrito abaixo
+4. Habilitar o [bash completion](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+5. Instalar o restante para master ou worker (ver readme abaixo)
 
 ## Instalando Kubernetes com containerd e runc sem o Docker
 
