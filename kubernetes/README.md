@@ -10,6 +10,8 @@
 
 ## Instalando Kubernetes com containerd e runc sem o Docker
 
+[Oficial docs reference](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/paliari-ti/dev-ops/master/kubernetes/install.sh | bash
 ```
