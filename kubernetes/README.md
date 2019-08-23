@@ -2,11 +2,12 @@
 
 ## Checklist para instalação
 
-1. Configurar **yum** e **yum update**
-2. Desabilitar swap
-3. Instalar usando o script **install.sh** descrito abaixo
+1. [Configurar **yum** e **yum update**](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/EXTRAS.md#configurar-yum)
+2. [Desabilitar swap](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/EXTRAS.md#disable-swap)
+3. [Instalar usando o script **install.sh** descrito abaixo](https://github.com/paliari-ti/dev-ops/tree/master/kubernetes#instalando-kubernetes-com-containerd-e-runc-sem-o-docker)
 4. Habilitar o [bash completion](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 5. Instalar o restante para master ou worker (ver readme abaixo)
+6. Instalar [metallb](https://metallb.universe.tf/) [Tutorial](https://www.youtube.com/watch?v=xYiYIjlAgHY)(Opcional)
 
 ## Instalando Kubernetes com containerd e runc sem o Docker
 
