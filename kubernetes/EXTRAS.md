@@ -26,4 +26,13 @@ Remove the line with `/dev/mapper/rhel-swap` from `/etc/fstab` file
 
 ## K8S
 
-[Bash completion](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+[Bash completion](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-bash-completion)
+
+```bash
+# Requirements
+yum install bash-completion -y
+echo 'source /usr/share/bash-completion/bash_completion' >> ~/.bashrc
+
+echo 'source <(kubectl completion bash)' >>~/.bashrc
+kubectl completion bash >/etc/bash_completion.d/kubectl
+```
