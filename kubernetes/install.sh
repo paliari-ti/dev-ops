@@ -4,7 +4,7 @@ set -e
 ## Construindo um cluster Kubernetes sem utilizar o Docker no RedHat
 
 ## Etapas em ambos, master e workers
-yum install -y wget
+yum install -y wget libseccomp
 
 ## Open ports
 firewall-cmd --permanent --add-port=6443/tcp
