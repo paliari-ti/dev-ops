@@ -19,10 +19,12 @@ yum update -y
 
 ### Disable swap
 
-```
+```bash 
 swapoff -a
+
+# Comment the line with `/dev/mapper/rhel-swap` from `/etc/fstab` file
+sed -i 's/\/dev\/mapper\/rhel-swap/#\/dev\/mapper\/rhel-swap/g' /etc/fstab
 ```
-Remove the line with `/dev/mapper/rhel-swap` from `/etc/fstab` file
 
 ## K8S
 
