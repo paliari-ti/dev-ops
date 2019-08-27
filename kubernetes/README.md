@@ -1,13 +1,13 @@
 ## Sumary
 
 1. [Configure **yum** and run **yum update**](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/EXTRAS.md#configurar-yum)
-2. Install the [requirements](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/README.md#requirements), [containerd](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/README.md#containerd), [kubeadm, kubelet and kubectl](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/README.md#kubeadm-kubelet-kubectl)
+2. Install the [requirements](https://github.com/paliari-ti/dev-ops/tree/master/kubernetes#requirements), [containerd](https://github.com/paliari-ti/dev-ops/tree/master/kubernetes#containerd), [kubeadm, kubelet and kubectl](https://github.com/paliari-ti/dev-ops/tree/master/kubernetes#kubeadm-kubelet-kubectl)
     
     For these items, you can run manually or simply run the convenience script to install everything
 
     `curl -fsSL https://raw.githubusercontent.com/paliari-ti/dev-ops/master/kubernetes/install.sh | bash`
 
-3. [Create the cluster](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/README.md#creating-cluster)
+3. [Create the cluster](https://github.com/paliari-ti/dev-ops/tree/master/kubernetes#creating-the-cluster)
 
 
 ## Requirements
@@ -94,7 +94,7 @@ yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 systemctl enable --now kubelet
 ```
 
-## [Creating cluster](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+## [Creating the cluster](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 
 
 ### Only on master
