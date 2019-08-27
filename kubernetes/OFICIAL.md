@@ -47,8 +47,9 @@ yum update -y && yum install -y containerd.io
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
 
-# Restart containerd
+# Restart and enale containerd
 systemctl restart containerd
+systemctl enable containerd
 ```
 
 ## [kubeadm, kubelet, kubectl](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
