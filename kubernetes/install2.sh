@@ -75,3 +75,11 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
 systemctl enable --now kubelet
+
+
+
+# Bash completion
+yum install bash-completion -y
+echo 'source /usr/share/bash-completion/bash_completion' >> ~/.bashrc
+echo 'source <(kubectl completion bash)' >>~/.bashrc
+kubectl completion bash >/etc/bash_completion.d/kubectl
