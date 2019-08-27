@@ -97,6 +97,7 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 
 # root user
 export KUBECONFIG=/etc/kubernetes/admin.conf
+echo 'export KUBECONFIG=/etc/kubernetes/admin.conf' >> /root/.bashrc
 
 # pode network
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
