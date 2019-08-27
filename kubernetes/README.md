@@ -8,7 +8,7 @@ Install kubernetes without docker in redhat 7.6
 1. [Configure **yum** and run **yum update**](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/EXTRAS.md#configurar-yum)
 2. Install the [requirements](https://github.com/paliari-ti/dev-ops/tree/master/kubernetes#requirements), [containerd](https://github.com/paliari-ti/dev-ops/tree/master/kubernetes#containerd), [kubeadm, kubelet and kubectl](https://github.com/paliari-ti/dev-ops/tree/master/kubernetes#kubeadm-kubelet-kubectl)
     
-    For these items, you can run manually or simply run the convenience script to install everything
+    For these items, you can run manually or simply run the [convenience script](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/install.sh) to install everything
 
     `curl -fsSL https://raw.githubusercontent.com/paliari-ti/dev-ops/master/kubernetes/install.sh | bash`
 
