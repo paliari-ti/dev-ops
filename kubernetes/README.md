@@ -1,4 +1,4 @@
-## 1 - Sumary
+## Sumary
 
 1. [Configure **yum** and run **yum update**](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/EXTRAS.md#configurar-yum)
 2. Install the [requirements](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/README.md#requirements), [containerd](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/README.md#containerd), [kubeadm, kubelet and kubectl](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/README.md#kubeadm-kubelet-kubectl)
