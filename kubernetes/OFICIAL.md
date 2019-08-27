@@ -1,4 +1,4 @@
-# Requirements
+## Requirements
 
 ```bash
 # disable swap
@@ -10,7 +10,7 @@ systemctl disable firewalld
 systemctl stop firewalld
 ```
 
-# [CONTAINERD](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd)
+## [Containerd](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd)
 
 ```bash
 cat > /etc/modules-load.d/containerd.conf <<EOF
@@ -48,7 +48,7 @@ containerd config default > /etc/containerd/config.toml
 systemctl restart containerd
 ```
 
-# [KUBEADM, KUBELET, KUBECTL](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+## [kubeadm, kubelet, kubectl](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
 
 ```bash
 cat <<EOF >  /etc/sysctl.d/k8s.conf
@@ -76,10 +76,10 @@ yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 systemctl enable --now kubelet
 ```
 
-# [Creating cluster](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+## [Creating cluster](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 
 
-## Only on master
+### Only on master
 
 ```bash
 kubeadm init --cri-socket "unix:///run/containerd/containerd.sock"
@@ -96,7 +96,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
 
-## Only on workers
+### Only on workers
 
 ```bash
 kubeadm join <master-ip>:6443 --token <token> --discovery-token-ca-cert-hash <hash> --cri-socket "unix:///run/containerd/containerd.sock"
