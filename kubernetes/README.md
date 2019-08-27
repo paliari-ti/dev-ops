@@ -1,53 +1,123 @@
-# Construindo um cluster Kubernetes sem utilizar o Docker no RedHat
+## 1 - Sumary
 
-## Checklist para instalação
+1. [Configure **yum** and run **yum update**](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/EXTRAS.md#configurar-yum)
+2. Install the [requirements](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/README.md#requirements), [containerd](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/README.md#containerd), [kubeadm, kubelet and kubectl](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/README.md#kubeadm-kubelet-kubectl)
+    
+    For these items, you can run manually or simply run the convenience script to install everything
 
-1. [Configurar **yum** e **yum update**](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/EXTRAS.md#configurar-yum)
-2. [Desabilitar swap](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/EXTRAS.md#disable-swap)
-3. [Instalar usando o script **install.sh** descrito abaixo](https://github.com/paliari-ti/dev-ops/tree/master/kubernetes#instalando-kubernetes-com-containerd-e-runc-sem-o-docker)
-4. Habilitar o [bash completion](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-5. Instalar o restante para master ou worker (ver readme abaixo)
-6. [Instalar MetalLb](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/EXTRAS.md#metallb)
+    `curl -fsSL https://raw.githubusercontent.com/paliari-ti/dev-ops/master/kubernetes/install.sh | bash`
 
-## Instalando Kubernetes com containerd e runc sem o Docker
+3. [Create the cluster](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/README.md#creating-cluster)
 
-[Oficial docs reference](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+
+## Requirements
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/paliari-ti/dev-ops/master/kubernetes/install.sh | bash
-```
-After the installation finished, follow the steps below
+# disable swap
+swapoff -a
+sed -i 's/\/dev\/mapper\/rhel-swap/#\/dev\/mapper\/rhel-swap/g' /etc/fstab
 
-## Only on MASTER
+# disable firewalld
+systemctl disable firewalld
+systemctl stop firewalld
+```
+
+## [Containerd](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd)
+
+```bash
+cat > /etc/modules-load.d/containerd.conf <<EOF
+overlay
+br_netfilter
+EOF
+
+modprobe overlay
+modprobe br_netfilter
+
+# Setup required sysctl params, these persist across reboots.
+cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+EOF
+
+sysctl --system
+
+# Install containerd
+## Set up the repository
+### Install required packages
+yum install -y yum-utils device-mapper-persistent-data lvm2 libseccomp
+
+### Add docker repository
+yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+
+## Install containerd
+yum update -y && yum install -y containerd.io
+
+# Configure containerd
+mkdir -p /etc/containerd
+containerd config default > /etc/containerd/config.toml
+
+# Restart and enale containerd
+systemctl restart containerd
+systemctl enable containerd
+```
+
+## [kubeadm, kubelet, kubectl](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+
+```bash
+cat <<EOF >  /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+sysctl --system
+
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
+# Set SELinux in permissive mode (effectively disabling it)
+setenforce 0
+sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+
+yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+
+systemctl enable --now kubelet
+```
+
+## [Creating cluster](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+
+
+### Only on master
 
 ```bash
 kubeadm config images pull
-kubeadm init --apiserver-advertise-address $(hostname -I) --cri-socket /run/containerd/containerd.sock
+kubeadm init --cri-socket "unix:///run/containerd/containerd.sock"
+
+# normal user
 mkdir -p $HOME/.kube
 cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config
+
+# root user
+export KUBECONFIG=/etc/kubernetes/admin.conf
+echo 'export KUBECONFIG=/etc/kubernetes/admin.conf' >> /root/.bashrc
+
+# pode network
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
-kubectl get nodes
 ```
 
-If you want to allow to run pods on master `kubectl taint nodes --all node-role.kubernetes.io/master-`
-
-## Only on WORKERS
-
-Replace the variables below with the correct values
+### Only on workers
 
 ```bash
-kubeadm join $MASTER_IP:6443 --token $TOKEN --discovery-token-ca-cert-hash $DISCOVERY_TOKEN --cri-socket /run/containerd/containerd.sock
-```
-
-## Helpfull commands
-
-[Cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
-
-```
-systemctl status containerd
-containerd --help
-runc --help
-runc list
-ls /run/containerd/containerd.sock
+kubeadm join <master-ip>:6443 --token <token> --discovery-token-ca-cert-hash <hash> --cri-socket "unix:///run/containerd/containerd.sock"
 ```
