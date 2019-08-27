@@ -1,5 +1,7 @@
 ## Sumary
 
+> This document follows the official kubernetes documentation
+
 1. [Configure **yum** and run **yum update**](https://github.com/paliari-ti/dev-ops/blob/master/kubernetes/EXTRAS.md#configurar-yum)
 2. Install the [requirements](https://github.com/paliari-ti/dev-ops/tree/master/kubernetes#requirements), [containerd](https://github.com/paliari-ti/dev-ops/tree/master/kubernetes#containerd), [kubeadm, kubelet and kubectl](https://github.com/paliari-ti/dev-ops/tree/master/kubernetes#kubeadm-kubelet-kubectl)
     
