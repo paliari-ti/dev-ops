@@ -87,6 +87,7 @@ systemctl enable --now kubelet
 ### Only on master
 
 ```bash
+kubeadm config images pull
 kubeadm init --cri-socket "unix:///run/containerd/containerd.sock"
 
 # normal user
