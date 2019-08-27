@@ -57,13 +57,13 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
 ## Containerd e runc
-wget https://github.com/containerd/containerd/releases/download/v1.2.7/containerd-1.2.7.linux-amd64.tar.gz
+wget https://github.com/containerd/containerd/releases/download/v1.2.8/containerd-1.2.8.linux-amd64.tar.gz
 
-tar -xvzf containerd-1.2.7.linux-amd64.tar.gz
+tar -xvzf containerd-1.2.8.linux-amd64.tar.gz
 
 mv bin/* /usr/local/bin/
 
-rm -rf bin containerd-1.2.7.linux-amd64.tar.gz
+rm -rf bin containerd-1.2.8.linux-amd64.tar.gz
 
 ls -lha /usr/local/bin/containerd
 
