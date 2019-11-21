@@ -33,10 +33,20 @@ systemctl stop firewalld
 cat > /etc/modules-load.d/containerd.conf <<EOF
 overlay
 br_netfilter
+ip_vs_rr
+ip_vs_wrr
+ip_vs_sh
+nf_conntrack_ipv4
+ip_vs
 EOF
 
 modprobe overlay
 modprobe br_netfilter
+modprobe ip_vs_rr
+modprobe ip_vs_wrr
+modprobe ip_vs_sh
+modprobe ip_vs
+modprobe nf_conntrack_ipv4
 
 # Setup required sysctl params, these persist across reboots.
 cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
