@@ -60,11 +60,19 @@ EOF
 
 mkdir -p /etc/systemd/system/docker.service.d
 
+# Setup to start with tcp port
+cat > /etc/systemd/system/docker.service.d/docker.conf <<EOF
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375 --containerd=/run/containerd/containerd.sock
+EOF
+
 # Restart Docker
 systemctl enable docker
 systemctl daemon-reload
 systemctl restart docker
 ```
+
 
 ## [kubeadm, kubelet, kubectl](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
 
