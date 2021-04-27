@@ -19,27 +19,25 @@ helm install reverse-proxy stable/nginx-ingress --set rbac.create=true --set con
 ### Step 2 - Securing the Ingress Using Cert-Manager
 
 ```bash
-kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.14.1/cert-manager.crds.yaml
-
 kubectl create namespace cert-manager
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
-helm install cert-manager --version v0.14.1 --namespace cert-manager jetstack/cert-manager
+helm install cert-manager --version v1.3.1 --set installCRDs=true --namespace cert-manager jetstack/cert-manager
 ```
 
 #### Create a basic ACME cluster issuer
 
 [Reference](https://cert-manager.io/docs/configuration/acme/#creating-a-basic-acme-issuer)
 
-`cluster-issue.yaml`
+`cluster-issuer.yaml`
 ```yaml
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt
 spec:
   acme:
-    email: daniel@paliari.com.br
+    email: paliari@paliari.com.br
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-private-key
