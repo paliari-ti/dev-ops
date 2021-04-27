@@ -65,3 +65,22 @@ data:
       - 192.168.25.111-192.168.25.113
 EOF
 ```
+
+## [Install Helm](https://helm.sh/docs/intro/install/#from-script)
+
+```bash
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+rm get_helm.sh
+
+helm repo add stable https://charts.helm.sh/stable
+```
+
+## Metrics Server
+
+```bash
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+helm install metrics-server stable/metrics-server
+```
