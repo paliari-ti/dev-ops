@@ -77,10 +77,11 @@ rm get_helm.sh
 helm repo add stable https://charts.helm.sh/stable
 ```
 
-## Metrics Server
+## [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
 
 ```bash
-helm repo add bitnami https://charts.bitnami.com/bitnami
+kubectl -n kube-system apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
-helm install metrics-server stable/metrics-server
+kubectl -n kube-system patch deployment metrics-server --type "json" -p '[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]'
 ```
+
