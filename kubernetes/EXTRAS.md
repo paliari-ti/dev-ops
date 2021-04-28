@@ -79,3 +79,32 @@ kubectl -n kube-system apply -f https://github.com/kubernetes-sigs/metrics-serve
 kubectl -n kube-system patch deployment metrics-server --type "json" -p '[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]'
 ```
 
+## External Users - Cluster Admin
+
+```bash
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: external-admin
+  namespace: default
+EOF
+
+cat <<EOF | kubectl apply -f -
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: external-admin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: external-admin
+  namespace: default
+EOF
+
+# Get service account token
+kubectl get secret $(kubectl get secret -o=jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' | grep external-admin) -o jsonpath={.data.token} | base64 -d
+```
