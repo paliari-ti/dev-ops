@@ -117,7 +117,7 @@ systemctl enable --now kubelet
 
 ```bash
 kubeadm config images pull
-kubeadm init --cri-socket "unix:///run/containerd/containerd.sock" # Use "--apiserver-advertise-address=<ip-address>" in production server
+kubeadm init --cri-socket "unix:///run/containerd/containerd.sock" --apiserver-cert-extra-sans=<domain> # Use "--apiserver-advertise-address=<ip-address>" in production server
 
 # normal user
 mkdir -p $HOME/.kube
