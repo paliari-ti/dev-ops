@@ -86,7 +86,7 @@ cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: external-admin
+  name: external-cluster-admin
   namespace: default
 EOF
 
@@ -94,17 +94,17 @@ cat <<EOF | kubectl apply -f -
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: external-admin
+  name: external-cluster-admin
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: cluster-admin
 subjects:
 - kind: ServiceAccount
-  name: external-admin
+  name: external-cluster-admin
   namespace: default
 EOF
 
 # Get service account token
-kubectl get secret $(kubectl get secret -o=jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' | grep external-admin) -o jsonpath={.data.token} | base64 -d
+kubectl get secret $(kubectl get secret -o=jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' | grep external-cluster-admin) -o jsonpath={.data.token} | base64 -d
 ```
