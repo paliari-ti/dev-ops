@@ -43,6 +43,7 @@ chmod 700 get_helm.sh
 rm get_helm.sh
 
 helm repo add stable https://charts.helm.sh/stable
+helm repo update
 ```
 
 ## [MetalLb](https://metallb.universe.tf/installation/)
