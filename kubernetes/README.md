@@ -117,7 +117,7 @@ systemctl enable --now kubelet
 
 ```bash
 kubeadm config images pull
-kubeadm init --cri-socket "unix:///run/containerd/containerd.sock"
+kubeadm init --cri-socket "unix:///run/containerd/containerd.sock" # Use "--apiserver-advertise-address=<ip-address>" in production server
 
 # normal user
 mkdir -p $HOME/.kube
@@ -137,6 +137,14 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 ```bash
 kubeadm join <master-ip>:6443 --token <token> --discovery-token-ca-cert-hash <hash> --cri-socket "unix:///run/containerd/containerd.sock"
 ```
+
+### Additional Steps
+
+- [Install Helm](EXTRAS.md#install-helm)
+- [Install Metrics Server](EXTRAS.md#metrics-server)
+- [Install Metallb](EXTRAS.md#metallb)
+- [Install Ingress Controller](INGRESS.md#step-1---installing-the-kubernetes-nginx-ingress-controller)
+- [Install Cert Manager](INGRESS.md#step-2---securing-the-ingress-using-cert-manager)
 
 ### Tear down
 

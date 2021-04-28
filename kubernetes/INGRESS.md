@@ -1,22 +1,19 @@
 ## Docs to configure Nginx ingress controller and ingress with tls
 
-
-### References
-
-- [complete-tutorial](https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nginx-ingress-on-digitalocean-kubernetes-using-helm)
-- [nginx-ingress](https://hub.helm.sh/charts/stable/nginx-ingress)
-- [cert-manager](https://cert-manager.io/docs/usage/ingress/)
-
-
 ### Step 1 - Installing the Kubernetes Nginx Ingress Controller
 
-```bash
-kubectl create namespace ingress
+[Reference](https://kubernetes.github.io/ingress-nginx/deploy/#using-helm)
 
-helm install reverse-proxy stable/nginx-ingress --set rbac.create=true --set controller.publishService.enabled=true --set controller.metrics.enabled=true -n ingress
+```bash
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+
+helm install ingress-nginx ingress-nginx/ingress-nginx
 ```
 
 ### Step 2 - Securing the Ingress Using Cert-Manager
+
+[Reference](https://cert-manager.io/docs/usage/ingress/)
 
 ```bash
 kubectl create namespace cert-manager
@@ -48,10 +45,10 @@ spec:
 ```
 
 ```bash
-kubectl create -f cluster-issue.yaml
+kubectl create -f cluster-issuer.yaml
 ```
 
-### Step 3 - Create an Ingress resource with tls enabled
+### Step 3 - Create an Ingress resource with tls enabled (Optional - only to test if everything is working)
 
 `ingress.yaml`
 ```yaml

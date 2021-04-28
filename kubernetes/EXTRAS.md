@@ -11,9 +11,6 @@ subscription-manager repos --enable=rhel-7-server-rpms
 subscription-manager repos --enable=rhel-7-server-extras-rpms
 subscription-manager repos --enable=rhel-7-server-optional-rpms
 
-```
-
-```
 yum update -y
 ```
 
@@ -26,9 +23,7 @@ swapoff -a
 sed -i 's/\/dev\/mapper\/rhel-swap/#\/dev\/mapper\/rhel-swap/g' /etc/fstab
 ```
 
-## K8S
-
-[Bash completion](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-bash-completion)
+## [K8S bash completion](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-bash-completion)
 
 ```bash
 # Requirements
@@ -39,11 +34,20 @@ echo 'source <(kubectl completion bash)' >>~/.bashrc
 kubectl completion bash >/etc/bash_completion.d/kubectl
 ```
 
-## MetalLb
+## [Install Helm](https://helm.sh/docs/intro/install/#from-script)
 
-[Oficial docs](https://metallb.universe.tf/installation/)
+```bash
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+rm get_helm.sh
 
-[Tutorial](https://www.youtube.com/watch?v=xYiYIjlAgHY)
+helm repo add stable https://charts.helm.sh/stable
+```
+
+## [MetalLb](https://metallb.universe.tf/installation/)
+
+[Youtube tutorial](https://www.youtube.com/watch?v=xYiYIjlAgHY)
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.3/manifests/metallb.yaml
@@ -64,17 +68,6 @@ data:
       addresses:
       - 192.168.25.111-192.168.25.113
 EOF
-```
-
-## [Install Helm](https://helm.sh/docs/intro/install/#from-script)
-
-```bash
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
-rm get_helm.sh
-
-helm repo add stable https://charts.helm.sh/stable
 ```
 
 ## [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
