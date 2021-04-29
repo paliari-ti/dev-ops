@@ -1,5 +1,7 @@
 # Install kubernetes with containerd in redhat 7.9
 
+## [Kubernetes cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+
 ## Sumary
 
 > This document follows the official kubernetes documentation
