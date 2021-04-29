@@ -1,5 +1,4 @@
-Install kubernetes without docker in redhat 7.6
-==
+# Install kubernetes with containerd in redhat 7.9
 
 ## Sumary
 
