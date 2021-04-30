@@ -37,12 +37,10 @@ kubectl completion bash >/etc/bash_completion.d/kubectl
 ## [Install Helm](https://helm.sh/docs/intro/install/#from-script)
 
 ```bash
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
-rm get_helm.sh
+curl -fsSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
 helm repo add stable https://charts.helm.sh/stable
+
 helm repo update
 ```
 
