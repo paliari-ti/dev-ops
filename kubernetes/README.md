@@ -150,3 +150,19 @@ kubeadm join <master-ip>:6443 --token <token> --discovery-token-ca-cert-hash <ha
 ### Tear down
 
 [SEE](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#tear-down)
+
+```bash
+# This removes the node immediately from cluster
+kubeadm reset
+iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X
+ipvsadm -C
+```
+
+#### Remove old installed packages
+
+```bash
+yum remove docker-ce docker-ce-cli containerd.io
+rm -rf /var/lib/docker
+rm -rf /etc/docker
+rm --rf /etc/systemd/system/docker.service.d
+```
